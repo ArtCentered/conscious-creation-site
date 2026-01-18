@@ -138,9 +138,9 @@ p:last-child {
     width: 180px;
     height: 180px;
     object-fit: contain;
-    /* Apply gold color filter for dark background */
-    filter: sepia(100%) saturate(300%) brightness(90%) hue-rotate(5deg);
-    drop-shadow: 0 0 20px rgba(201, 169, 98, 0.4);
+    /* Convert black logo to gold: invert to white, then apply gold tint */
+    filter: invert(1) sepia(1) saturate(2) hue-rotate(5deg) brightness(0.9);
+    -webkit-filter: invert(1) sepia(1) saturate(2) hue-rotate(5deg) brightness(0.9);
 }
 
 .hero-tagline {
