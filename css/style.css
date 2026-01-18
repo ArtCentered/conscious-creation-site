@@ -73,7 +73,12 @@ p:last-child {
     top: 30px;
     left: 30px;
     z-index: 100;
-    color: var(--color-navy);
+}
+
+.site-logo img {
+    width: 50px;
+    height: 50px;
+    object-fit: contain;
 }
 
 /* Hero Section */
@@ -129,8 +134,13 @@ p:last-child {
     margin-bottom: 20px;
 }
 
-.hero-logo svg {
-    filter: drop-shadow(0 0 20px rgba(201, 169, 98, 0.4));
+.hero-logo img {
+    width: 180px;
+    height: 180px;
+    object-fit: contain;
+    /* Apply gold color filter for dark background */
+    filter: sepia(100%) saturate(300%) brightness(90%) hue-rotate(5deg);
+    drop-shadow: 0 0 20px rgba(201, 169, 98, 0.4);
 }
 
 .hero-tagline {
@@ -271,6 +281,13 @@ p:last-child {
     margin-bottom: 30px;
 }
 
+.book-icon img {
+    width: 100px;
+    height: auto;
+    margin: 0 auto;
+    object-fit: contain;
+}
+
 .book-title {
     font-size: clamp(1.5rem, 3vw, 2rem);
     color: var(--color-navy);
@@ -306,8 +323,10 @@ p:last-child {
     gap: 25px;
 }
 
-.footer-logo {
-    color: var(--color-navy);
+.footer-logo img {
+    width: 60px;
+    height: 60px;
+    object-fit: contain;
 }
 
 .footer-contact p {
@@ -368,7 +387,7 @@ p:last-child {
         left: 20px;
     }
 
-    .site-logo svg {
+    .site-logo img {
         width: 40px;
         height: 40px;
     }
@@ -381,9 +400,9 @@ p:last-child {
         letter-spacing: 0.15em;
     }
 
-    .hero-logo svg {
-        width: 120px;
-        height: 120px;
+    .hero-logo img {
+        width: 140px;
+        height: 140px;
     }
 
     .hero-image {
