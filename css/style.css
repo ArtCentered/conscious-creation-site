@@ -115,7 +115,7 @@ p:last-child {
     height: auto;
     display: block;
     object-fit: cover;
-    object-position: center;
+    object-position: top center;
     max-height: 70vh;
 }
 
