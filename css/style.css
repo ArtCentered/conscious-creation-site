@@ -337,7 +337,9 @@ p:last-child {
 }
 
 .newsletter-form button[type="submit"],
-.newsletter-form .btn-primary {
+.newsletter-form .btn-primary,
+.newsletter-content .btn-primary {
+    display: inline-block;
     background: #C9A962;
     color: #1a3a52;
     padding: 0.9rem 2rem;
@@ -349,11 +351,14 @@ p:last-child {
     font-size: 0.9rem;
     text-transform: uppercase;
     letter-spacing: 0.05em;
+    text-decoration: none;
 }
 
 .newsletter-form button[type="submit"]:hover,
-.newsletter-form .btn-primary:hover {
+.newsletter-form .btn-primary:hover,
+.newsletter-content .btn-primary:hover {
     background: #d4bc7d;
+    color: #1a3a52;
 }
 
 .form-note {
