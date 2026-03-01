@@ -1,6 +1,5 @@
 /* ==========================================================================
-   The Theory of Conscious Creation - Stylesheet
-   Minimal, clean design matching Wix layout
+   The Conscious Architect - Stylesheet
    Color Palette: Navy (#1a3a52), Gold (#C9A962), White (#ffffff)
    ========================================================================== */
 
@@ -162,12 +161,28 @@ p:last-child {
     text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
 }
 
-.hero-quote {
+.hero-creed {
+    margin-bottom: 25px;
+    text-align: center;
+}
+
+.hero-creed p {
     color: var(--color-white);
     font-family: var(--font-serif);
-    font-size: clamp(0.95rem, 2vw, 1.2rem);
+    font-size: clamp(1.1rem, 2.5vw, 1.6rem);
     font-style: italic;
-    max-width: 550px;
+    line-height: 1.8;
+    margin-bottom: 0;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+}
+
+.hero-subtitle {
+    color: rgba(255, 255, 255, 0.9);
+    font-family: var(--font-serif);
+    font-size: clamp(0.85rem, 1.8vw, 1.05rem);
+    font-style: italic;
+    max-width: 600px;
+    line-height: 1.7;
     text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
 }
 
@@ -209,6 +224,45 @@ p:last-child {
     width: 100%;
     border-radius: 4px;
     box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+}
+
+/* Toolkit Section */
+.toolkit-section {
+    background: var(--color-off-white);
+    padding: 80px 20px;
+}
+
+.toolkit-content {
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+.toolkit-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    margin-top: 40px;
+}
+
+.tool-card {
+    background: var(--color-white);
+    padding: 35px;
+    border-left: 3px solid var(--color-gold);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.06);
+}
+
+.tool-name {
+    font-family: var(--font-serif);
+    font-size: 1.4rem;
+    color: var(--color-navy);
+    margin-bottom: 15px;
+    font-weight: 500;
+}
+
+.tool-card p {
+    font-size: 0.95rem;
+    line-height: 1.8;
+    color: var(--color-text);
 }
 
 /* Author Section */
@@ -456,7 +510,8 @@ p:last-child {
 /* Responsive */
 @media (max-width: 900px) {
     .about-grid,
-    .author-grid {
+    .author-grid,
+    .toolkit-grid {
         grid-template-columns: 1fr;
     }
 
