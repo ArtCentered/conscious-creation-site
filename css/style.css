@@ -579,26 +579,41 @@ p:last-child {
         margin: 0 10px;
     }
 
+    .hero-logo {
+        margin-bottom: 10px;
+    }
+
     .hero-logo img {
-        width: 120px;
-        height: 120px;
+        width: 90px;
+        height: 90px;
+    }
+
+    .hero-creed {
+        margin-bottom: 12px;
     }
 
     .hero-creed p {
         font-size: clamp(0.95rem, 4.5vw, 1.2rem);
+        line-height: 1.6;
     }
 
     .hero-tagline {
-        font-size: clamp(0.8rem, 3vw, 1rem);
-        letter-spacing: 0.08em;
+        font-size: clamp(0.7rem, 2.8vw, 0.9rem);
+        letter-spacing: 0.06em;
     }
 
     .hero-image {
+        min-height: 340px;
         max-height: 60vh;
     }
 
     .hero-image > img {
+        min-height: 340px;
         max-height: 60vh;
+    }
+
+    .hero-image-content {
+        padding: 20px 15px;
     }
 
     .bridge-section {
@@ -649,18 +664,18 @@ p:last-child {
 }
 
 @media (max-width: 320px) {
+    .hero-logo img {
+        width: 70px;
+        height: 70px;
+    }
+
     .hero-creed p {
         font-size: 0.85rem;
         white-space: nowrap;
     }
 
     .hero-tagline {
-        font-size: 0.7rem;
-        letter-spacing: 0.05em;
-    }
-
-    .hero-logo img {
-        width: 100px;
-        height: 100px;
+        font-size: 0.6rem;
+        letter-spacing: 0.04em;
     }
 }
