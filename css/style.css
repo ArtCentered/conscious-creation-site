@@ -133,6 +133,7 @@ p:last-child {
     bottom: 0;
     background: rgba(0, 0, 0, 0.35);
     pointer-events: none;
+    z-index: 0;
 }
 
 .hero-image-content {
@@ -151,16 +152,16 @@ p:last-child {
 }
 
 .hero-logo {
+    position: relative;
+    z-index: 2;
     margin-bottom: 20px;
 }
 
 .hero-logo img {
+    display: block;
     width: 180px;
     height: 180px;
     object-fit: contain;
-    /* Convert black logo to gold: invert to white, then apply gold tint */
-    filter: invert(1) sepia(1) saturate(2) hue-rotate(5deg) brightness(0.9);
-    -webkit-filter: invert(1) sepia(1) saturate(2) hue-rotate(5deg) brightness(0.9);
 }
 
 .hero-tagline {
