@@ -1,89 +1,66 @@
-// The Theory of Conscious Creation - Main JavaScript
+// Renders the latest Substack posts from data/posts.json, which is refreshed
+// on a schedule by .github/workflows/sync-posts.yml.
 
-document.addEventListener('DOMContentLoaded', function() {
-      // Mobile Navigation Toggle
-                              const navToggle = document.querySelector('.nav-toggle');
-      const navLinks = document.querySelector('.nav-links');
+(function () {
+    var grid = document.getElementById('essays-grid');
+    if (!grid) return;
 
-                              if (navToggle && navLinks) {
-                                        navToggle.addEventListener('click', function() {
-                                                      navLinks.classList.toggle('active');
-                                                      navToggle.classList.toggle('active');
-                                        });
+    function formatDate(iso) {
+        if (!iso) return '';
+        var d = new Date(iso + 'T12:00:00Z');
+        return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+    }
 
-          // Close mobile menu when clicking a link
-          navLinks.querySelectorAll('a').forEach(link => {
-                        link.addEventListener('click', () => {
-                                          navLinks.classList.remove('active');
-                                          navToggle.classList.remove('active');
-                        });
-          });
-                              }
+    function el(tag, className, text) {
+        var node = document.createElement(tag);
+        if (className) node.className = className;
+        if (text) node.textContent = text;
+        return node;
+    }
 
-                              // Smooth scroll for anchor links
-                              document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-                                        anchor.addEventListener('click', function(e) {
-                                                      e.preventDefault();
-                                                      const target = document.querySelector(this.getAttribute('href'));
-                                                      if (target) {
-                                                                        const navHeight = document.querySelector('.nav').offsetHeight;
-                                                                        const targetPosition = target.getBoundingClientRect().top + window.pageYOffset - navHeight;
-                                                                        window.scrollTo({
-                                                                                              top: targetPosition,
-                                                                                              behavior: 'smooth'
-                                                                        });
-                                                      }
-                                        });
-                              });
+    function card(post, featured) {
+        var a = el('a', featured ? 'essay essay-featured' : 'essay');
+        a.href = post.url;
+        a.target = '_blank';
+        a.rel = 'noopener';
 
-                              // Navbar background on scroll
-                              const nav = document.querySelector('.nav');
-      let lastScroll = 0;
+        if (post.image) {
+            var wrap = el('div', 'essay-image');
+            var img = el('img');
+            img.src = post.image;
+            img.alt = '';
+            img.loading = 'lazy';
+            wrap.appendChild(img);
+            a.appendChild(wrap);
+        }
 
-                              window.addEventListener('scroll', function() {
-                                        const currentScroll = window.pageYOffset;
-                                        if (currentScroll > 100) {
-                                                      nav.style.boxShadow = '0 2px 20px rgba(0, 0, 0, 0.1)';
-                                        } else {
-                                                      nav.style.boxShadow = '0 2px 10px rgba(0, 0, 0, 0.05)';
-                                        }
-                                        lastScroll = currentScroll;
-                              });
+        var body = el('div', 'essay-body');
+        body.appendChild(el('h3', 'essay-title', post.title));
+        if (post.subtitle) body.appendChild(el('p', 'essay-subtitle', post.subtitle));
+        body.appendChild(el('p', 'essay-date', formatDate(post.date)));
+        a.appendChild(body);
+        return a;
+    }
 
-                              // Intersection Observer for fade-in animations
-                              const observerOptions = {
-                                        root: null,
-                                        rootMargin: '0px',
-                                        threshold: 0.1
-                              };
+    function fallback() {
+        var p = el('p', 'essays-fallback');
+        p.appendChild(document.createTextNode('Read the essays at '));
+        var link = el('a', null, 'travisknudsen.substack.com');
+        link.href = 'https://travisknudsen.substack.com';
+        p.appendChild(link);
+        p.appendChild(document.createTextNode('.'));
+        grid.appendChild(p);
+    }
 
-                              const observer = new IntersectionObserver((entries) => {
-                                        entries.forEach(entry => {
-                                                      if (entry.isIntersecting) {
-                                                                        entry.target.classList.add('visible');
-                                                                        observer.unobserve(entry.target);
-                                                      }
-                                        });
-                              }, observerOptions);
-
-                              // Observe all sections
-                              document.querySelectorAll('.section').forEach(section => {
-                                        observer.observe(section);
-                              });
-
-                              // Newsletter form handling
-                              const newsletterForm = document.querySelector('.newsletter-form');
-      if (newsletterForm) {
-                newsletterForm.addEventListener('submit', function(e) {
-                              // Form will submit to Buttondown
-                                                            // Add any additional validation here if needed
-                                                            const email = this.querySelector('input[type="email"]').value;
-                              if (!email || !email.includes('@')) {
-                                                e.preventDefault();
-                                                alert('Please enter a valid email address.');
-                              }
-                });
-      }
-
-                              console.log('The Theory of Conscious Creation - Site Loaded');
-});
+    fetch('data/posts.json', { cache: 'no-cache' })
+        .then(function (r) { return r.ok ? r.json() : Promise.reject(r.status); })
+        .then(function (data) {
+            var posts = (data && data.posts) || [];
+            if (!posts.length) return fallback();
+            grid.appendChild(card(posts[0], true));
+            var rest = el('div', 'essay-list');
+            posts.slice(1, 5).forEach(function (p) { rest.appendChild(card(p, false)); });
+            grid.appendChild(rest);
+        })
+        .catch(fallback);
+})();
