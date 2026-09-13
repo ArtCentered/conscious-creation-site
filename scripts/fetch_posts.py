@@ -2,12 +2,16 @@
 """Pull the latest posts from Substack into data/posts.json.
 
 Run by .github/workflows/sync-posts.yml on a schedule. Safe to run locally.
-Tries the RSS feed first, then Substack's JSON API. Exits non-zero, with a
-GitHub Actions error annotation explaining why, if neither works, so a broken
-fetch never overwrites a good file with an empty one.
+Substack sits behind Cloudflare, which serves GitHub's runners a bot challenge
+on the feed and the API. So this tries the direct feed, then the direct API,
+then two public RSS relays whose servers Substack does not challenge. Exits
+non-zero, with a GitHub Actions error annotation explaining why, only if all
+four fail, so a broken fetch never overwrites a good file with an empty one.
 """
 import json
+import re
 import sys
+import urllib.parse
 import time
 import urllib.error
 import urllib.request
@@ -18,6 +22,8 @@ from pathlib import Path
 SITE = "https://travisknudsen.substack.com"
 FEED = f"{SITE}/feed"
 API = f"{SITE}/api/v1/posts?limit=6&offset=0"
+RSS2JSON = "https://api.rss2json.com/v1/api.json?rss_url=" + urllib.parse.quote(FEED, safe="")
+FEED2JSON = "https://feed2json.org/convert?url=" + urllib.parse.quote(FEED, safe="")
 OUT = Path(__file__).resolve().parent.parent / "data" / "posts.json"
 LIMIT = 6
 HEADERS = {
@@ -83,10 +89,54 @@ def from_api(raw: bytes) -> list[dict]:
     return posts
 
 
+def from_rss2json(raw: bytes) -> list[dict]:
+    data = json.loads(raw)
+    if data.get("status") != "ok":
+        raise RuntimeError(f"rss2json status {data.get('status')}: {data.get('message')}")
+    posts = []
+    for it in data.get("items", [])[:LIMIT]:
+        title = (it.get("title") or "").strip()
+        link = it.get("link") or ""
+        if not title or not link:
+            continue
+        posts.append({
+            "title": title,
+            "subtitle": (it.get("description") or "").strip(),
+            "url": link,
+            "date": (it.get("pubDate") or "")[:10] or None,
+            "image": it.get("thumbnail") or (it.get("enclosure") or {}).get("link"),
+        })
+    return posts
+
+
+def from_feed2json(raw: bytes) -> list[dict]:
+    posts = []
+    for it in json.loads(raw).get("items", [])[:LIMIT]:
+        title = (it.get("title") or "").strip()
+        link = it.get("url") or ""
+        if not title or not link:
+            continue
+        m = re.search(r'<img[^>]+src="([^"]+)"', it.get("content_html") or "")
+        posts.append({
+            "title": title,
+            "subtitle": (it.get("summary") or "").strip(),
+            "url": link,
+            "date": (it.get("date_published") or "")[:10] or None,
+            "image": m.group(1) if m else None,
+        })
+    return posts
+
+
 def main() -> int:
     errors = []
     posts: list[dict] = []
-    for name, url, parse in (("feed", FEED, from_feed), ("api", API, from_api)):
+    sources = (
+        ("feed", FEED, from_feed),
+        ("api", API, from_api),
+        ("rss2json", RSS2JSON, from_rss2json),
+        ("feed2json", FEED2JSON, from_feed2json),
+    )
+    for name, url, parse in sources:
         try:
             posts = parse(fetch(url))
             if posts:
