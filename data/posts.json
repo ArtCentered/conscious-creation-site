@@ -2,6 +2,13 @@
   "source": "https://travisknudsen.substack.com",
   "posts": [
     {
+      "title": "The Weather Wall",
+      "subtitle": "The last semester I drew weather by hand, and the numbers that left on their own",
+      "url": "https://travisknudsen.substack.com/p/the-weather-wall",
+      "date": "2026-09-27",
+      "image": "https://substackcdn.com/image/fetch/$s_!l8-R!,f_auto,q_auto:good,fl_progressive:steep/https://substack-post-media.s3.amazonaws.com/public/images/3a11b859-ee3a-4787-a6c8-c827f86dbccc_1456x1048.png"
+    },
+    {
       "title": "The Headphones",
       "subtitle": "He began to learn the piano in silence, and I asked him to stop",
       "url": "https://travisknudsen.substack.com/p/the-headphones",
@@ -35,13 +42,6 @@
       "url": "https://travisknudsen.substack.com/p/two-tenths-of-a-mile",
       "date": "2026-08-23",
       "image": "https://substackcdn.com/image/fetch/$s_!hAZJ!,f_auto,q_auto:good,fl_progressive:steep/https://substack-post-media.s3.amazonaws.com/public/images/e0045f4f-20b2-40e8-bba8-a9de277838cc_1456x1048.png"
-    },
-    {
-      "title": "The Trowel",
-      "subtitle": "On a scan, an old word, and who stands behind this page",
-      "url": "https://travisknudsen.substack.com/p/the-trowel",
-      "date": "2026-08-16",
-      "image": "https://substackcdn.com/image/fetch/$s_!yY64!,f_auto,q_auto:good,fl_progressive:steep/https://substack-post-media.s3.amazonaws.com/public/images/c11f78a2-5e0f-4d5f-a0c5-03a880fbfaf1_1456x1048.png"
     }
   ]
 }
