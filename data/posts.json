@@ -2,6 +2,13 @@
   "source": "https://travisknudsen.substack.com",
   "posts": [
     {
+      "title": "What the Bowl Says",
+      "subtitle": "A flu shot, a kidney diet, and reading an appetite",
+      "url": "https://travisknudsen.substack.com/p/what-the-bowl-says",
+      "date": "2026-10-25",
+      "image": "https://substackcdn.com/image/fetch/$s_!dT9j!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F6eb9df73-30fc-4f8a-a82b-d15d2c7f98d4_1456x1048.png"
+    },
+    {
       "title": "The Detergent",
       "subtitle": "A jug, a strip, and a scoop filled under the line",
       "url": "https://travisknudsen.substack.com/p/the-detergent",
@@ -35,13 +42,6 @@
       "url": "https://travisknudsen.substack.com/p/the-headphones",
       "date": "2026-09-20",
       "image": "https://substackcdn.com/image/fetch/$s_!0W79!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F1d36dac4-97df-4a0c-8cfb-71db7ab9c3c5_1456x1048.png"
-    },
-    {
-      "title": "Fluctus",
-      "subtitle": "On a line in my book that reads well and is wrong",
-      "url": "https://travisknudsen.substack.com/p/fluctus",
-      "date": "2026-09-13",
-      "image": "https://substackcdn.com/image/fetch/$s_!P_d1!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F98e34999-7b77-480f-b73f-fc7a87e2baf7_1456x1048.png"
     }
   ]
 }
